@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Text Factory</string>
+    <string name="rev">Reverse/Reverse Words</string>
+    <string name="msu">Randomize</string>
+    <string name="emp">Empty</string>
+    <string name="undo">Undo</string>
+    <string name="cp">Copy</string>
+    <string name="pst">Paste/Append</string>
+    <string name="svld">Save/Load</string>
+    <string name="sr">Share</string>
+    <string name="mp">Multiply</string>
+    <string name="uc">Upper Case/Wordify</string>
+    <string name="lc">Lower Case</string>
+    <string name="rpl">Replace</string>
+    <string name="endy">Encrypt/Decrypt</string>
+</resources>

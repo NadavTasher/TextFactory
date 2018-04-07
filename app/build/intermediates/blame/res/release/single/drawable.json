@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/home/nadav/AndroidStudioProjects/TextFactory/app/build/intermediates/res/merged/release/drawable/back.xml",
+        "source": "/home/nadav/AndroidStudioProjects/TextFactory/app/src/main/res/drawable/back.xml"
+    },
+    {
+        "merged": "/home/nadav/AndroidStudioProjects/TextFactory/app/build/intermediates/res/merged/release/drawable/button.xml",
+        "source": "/home/nadav/AndroidStudioProjects/TextFactory/app/src/main/res/drawable/button.xml"
+    },
+    {
+        "merged": "/home/nadav/AndroidStudioProjects/TextFactory/app/build/intermediates/res/merged/release/drawable/ic_tefa_r.xml",
+        "source": "/home/nadav/AndroidStudioProjects/TextFactory/app/src/main/res/drawable/ic_tefa_r.xml"
+    }
+]

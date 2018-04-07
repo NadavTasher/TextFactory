@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/nadav/.android/build-cache/6b8351d7186adfca4a2f240209bb8c99fd5f1cbe/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="c2f545b935de006bd74dcc914b108eb9799155b4">
+        <dex dex="/home/nadav/AndroidStudioProjects/TextFactory/app/build/intermediates/pre-dexed/debug/classes_a527867d2326954dcf1d8b7da4931cc22f5205f8.jar" />
+    </item>
+
+</items>

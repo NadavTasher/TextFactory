@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "/home/nadav/AndroidStudioProjects/TextFactory/app/build/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "/home/nadav/AndroidStudioProjects/TextFactory/app/src/main/res/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/nadav/AndroidStudioProjects/TextFactory/app/build/intermediates/res/merged/debug/drawable_button.xml.flat",
+        "source": "/home/nadav/AndroidStudioProjects/TextFactory/app/src/main/res/drawable/button.xml"
+    },
+    {
+        "merged": "/home/nadav/AndroidStudioProjects/TextFactory/app/build/intermediates/res/merged/debug/drawable_ic_tefa_r.xml.flat",
+        "source": "/home/nadav/AndroidStudioProjects/TextFactory/app/src/main/res/drawable/ic_tefa_r.xml"
+    },
+    {
+        "merged": "/home/nadav/AndroidStudioProjects/TextFactory/app/build/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "/home/nadav/AndroidStudioProjects/TextFactory/app/src/main/res/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/nadav/AndroidStudioProjects/TextFactory/app/build/intermediates/res/merged/debug/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "/home/nadav/AndroidStudioProjects/TextFactory/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/nadav/AndroidStudioProjects/TextFactory/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "/home/nadav/AndroidStudioProjects/TextFactory/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/nadav/AndroidStudioProjects/TextFactory/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "/home/nadav/AndroidStudioProjects/TextFactory/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/nadav/AndroidStudioProjects/TextFactory/app/build/intermediates/res/merged/debug/drawable_back.xml.flat",
+        "source": "/home/nadav/AndroidStudioProjects/TextFactory/app/src/main/res/drawable/back.xml"
+    }
+]
