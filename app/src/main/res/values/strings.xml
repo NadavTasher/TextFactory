@@ -1,16 +1,21 @@
 <resources>
     <string name="app_name">Text Factory</string>
-    <string name="rev">Reverse/Reverse Words</string>
-    <string name="msu">Randomize</string>
-    <string name="emp">Empty</string>
+    <string name="encrypt">Encrypt</string>
+    <string name="decrypt">Decrypt</string>
+    <string name="reverse_words">Word Reverse</string>
+    <string name="upper">Upper Case</string>
+    <string name="lower">Lower Case</string>
+    <string name="wordify">Wordify</string>
+    <string name="reverse">Reverse</string>
+    <string name="randomize">Randomize</string>
+    <string name="special_chars">Special Chars</string>
+    <string name="anti_malware">Anti-Malware</string>
+    <string name="empty">Empty</string>
     <string name="undo">Undo</string>
-    <string name="cp">Copy</string>
-    <string name="pst">Paste/Append</string>
-    <string name="svld">Save/Load</string>
-    <string name="sr">Share</string>
-    <string name="mp">Multiply</string>
-    <string name="uc">Upper Case/Wordify</string>
-    <string name="lc">Lower Case</string>
-    <string name="rpl">Replace</string>
-    <string name="endy">Encrypt/Decrypt</string>
+    <string name="copy">Copy</string>
+    <string name="paste">Paste</string>
+    <string name="append">Append</string>
+    <string name="share">Share</string>
+    <string name="multiply">Multiply</string>
+    <string name="replace">Replace</string>
 </resources>

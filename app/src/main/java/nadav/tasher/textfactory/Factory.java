@@ -1,18 +1,19 @@
 package nadav.tasher.textfactory;
 
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.Gravity;
@@ -23,9 +24,8 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.widget.TextView;
 
 import org.secrypto.java.Crypto;
 
@@ -33,8 +33,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import nadav.tasher.lightool.graphics.views.appview.AppView;
+import nadav.tasher.lightool.graphics.views.appview.navigation.Drag;
 import nadav.tasher.lightool.info.Device;
-import nadav.tasher.lightool.tools.Animations;
 import nadav.tasher.lightool.tools.transfer.Clip;
 
 public class Factory extends Activity {
@@ -62,6 +62,17 @@ public class Factory extends Activity {
         appView = new AppView(getApplicationContext(), getDrawable(R.drawable.ic_tefa_r), 0x333333);
         appView.setBackgroundColor(appColor);
         appView.overlaySelf(getWindow());
+        appView.getDrag().setOnStateChangedListener(new Drag.OnStateChangedListener() {
+            @Override
+            public void onOpen() {
+                appView.getDrag().close(true);
+            }
+
+            @Override
+            public void onClose() {
+                appView.getDrag().emptyContent();
+            }
+        });
         initStageBC();
     }
 
@@ -73,18 +84,21 @@ public class Factory extends Activity {
     }
 
     private void initStageC() {
-        LinearLayout all=new LinearLayout(getApplicationContext());
+        LinearLayout all = new LinearLayout(getApplicationContext());
         all.setOrientation(LinearLayout.VERTICAL);
-        all.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.START);
-        LinearLayout bottom=new LinearLayout(getApplicationContext());
+        all.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.START);
+        LinearLayout bottom = new LinearLayout(getApplicationContext());
         bottom.setOrientation(LinearLayout.HORIZONTAL);
         bottom.setGravity(Gravity.CENTER);
-        LinearLayout left=new LinearLayout(getApplicationContext());
+        LinearLayout left = new LinearLayout(getApplicationContext());
         left.setOrientation(LinearLayout.VERTICAL);
-        left.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.START);
-        LinearLayout right=new LinearLayout(getApplicationContext());
+        left.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.START);
+        LinearLayout middle = new LinearLayout(getApplicationContext());
+        middle.setOrientation(LinearLayout.VERTICAL);
+        middle.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.START);
+        LinearLayout right = new LinearLayout(getApplicationContext());
         right.setOrientation(LinearLayout.VERTICAL);
-        right.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.START);
+        right.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.START);
         input = new EditText(this);
         input.setHint("Your Text");
         if (getIntent().hasExtra(Intent.EXTRA_TEXT)) {
@@ -95,68 +109,98 @@ public class Factory extends Activity {
         input.setHintTextColor(Color.GRAY);
         input.setBackground(getDrawable(R.drawable.back));
         input.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_TEXT_FLAG_MULTI_LINE | EditorInfo.IME_ACTION_NONE);
-        final Button empty = new Button(this), pst = new Button(this), eyn = new Button(this), reverse = new Button(this), replace = new Button(this), multiply = new Button(this), copy = new Button(this), tocapital = new Button(this), tononcapital = new Button(this), randomize = new Button(this), share = new Button(this), undo = new Button(this);
-        reverse.setText(R.string.rev);
-        pst.setText(R.string.pst);
-        eyn.setText(R.string.endy);
+        final Button empty = new Button(this), antiMalware = new Button(this), specialChars = new Button(this), paste = new Button(this), append = new Button(this), encrypt = new Button(this), decrypt = new Button(this), reverse = new Button(this), reverseWords = new Button(this), replace = new Button(this), multiply = new Button(this), copy = new Button(this), wordify = new Button(this), upper = new Button(this), lower = new Button(this), randomize = new Button(this), share = new Button(this), undo = new Button(this);
+        reverse.setText(R.string.reverse);
+        paste.setText(R.string.paste);
+        append.setText(R.string.append);
+        specialChars.setText(R.string.special_chars);
+        antiMalware.setText(R.string.anti_malware);
+        encrypt.setText(R.string.encrypt);
+        decrypt.setText(R.string.decrypt);
         undo.setText(R.string.undo);
-        empty.setText(R.string.emp);
-        replace.setText(R.string.rpl);
-        multiply.setText(R.string.mp);
-        copy.setText(R.string.cp);
-        tocapital.setText(R.string.uc);
-        tononcapital.setText(R.string.lc);
-        randomize.setText(R.string.msu);
-        share.setText(R.string.sr);
+        empty.setText(R.string.empty);
+        replace.setText(R.string.replace);
+        multiply.setText(R.string.multiply);
+        copy.setText(R.string.copy);
+        wordify.setText(R.string.wordify);
+        upper.setText(R.string.upper);
+        lower.setText(R.string.lower);
+        reverseWords.setText(R.string.reverse_words);
+        randomize.setText(R.string.randomize);
+        share.setText(R.string.share);
         left.addView(empty);
         left.addView(undo);
         left.addView(copy);
         left.addView(share);
-        right.addView(pst);
-        left.addView(eyn);
         left.addView(reverse);
+        left.addView(antiMalware);
+        middle.addView(encrypt);
+        middle.addView(decrypt);
+        middle.addView(wordify);
+        middle.addView(reverseWords);
+        middle.addView(specialChars);
+        middle.addView(randomize);
+        right.addView(paste);
+        right.addView(append);
         right.addView(replace);
         right.addView(multiply);
-        right.addView(tocapital);
-        right.addView(tononcapital);
-        right.addView(randomize);
+        right.addView(upper);
+        right.addView(lower);
         copy.setBackground(getDrawable(R.drawable.button));
-        pst.setBackground(getDrawable(R.drawable.button));
-        eyn.setBackground(getDrawable(R.drawable.button));
+        paste.setBackground(getDrawable(R.drawable.button));
+        append.setBackground(getDrawable(R.drawable.button));
+        specialChars.setBackground(getDrawable(R.drawable.button));
+        antiMalware.setBackground(getDrawable(R.drawable.button));
+        encrypt.setBackground(getDrawable(R.drawable.button));
+        decrypt.setBackground(getDrawable(R.drawable.button));
         undo.setBackground(getDrawable(R.drawable.button));
         share.setBackground(getDrawable(R.drawable.button));
         reverse.setBackground(getDrawable(R.drawable.button));
         empty.setBackground(getDrawable(R.drawable.button));
         replace.setBackground(getDrawable(R.drawable.button));
         multiply.setBackground(getDrawable(R.drawable.button));
-        tocapital.setBackground(getDrawable(R.drawable.button));
-        tononcapital.setBackground(getDrawable(R.drawable.button));
+        upper.setBackground(getDrawable(R.drawable.button));
+        lower.setBackground(getDrawable(R.drawable.button));
+        reverseWords.setBackground(getDrawable(R.drawable.button));
+        wordify.setBackground(getDrawable(R.drawable.button));
         randomize.setBackground(getDrawable(R.drawable.button));
         copy.setTransformationMethod(null);
-        pst.setTransformationMethod(null);
-        eyn.setTransformationMethod(null);
+        paste.setTransformationMethod(null);
+        append.setTransformationMethod(null);
+        specialChars.setTransformationMethod(null);
+        antiMalware.setTransformationMethod(null);
+        encrypt.setTransformationMethod(null);
+        decrypt.setTransformationMethod(null);
         share.setTransformationMethod(null);
         undo.setTransformationMethod(null);
         reverse.setTransformationMethod(null);
         empty.setTransformationMethod(null);
         replace.setTransformationMethod(null);
         multiply.setTransformationMethod(null);
-        tocapital.setTransformationMethod(null);
-        tononcapital.setTransformationMethod(null);
+        upper.setTransformationMethod(null);
+        lower.setTransformationMethod(null);
+        wordify.setTransformationMethod(null);
+        reverseWords.setTransformationMethod(null);
         randomize.setTransformationMethod(null);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         input.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Device.screenY(getApplicationContext()) / 2));
         input.setVerticalScrollBarEnabled(true);
         reverse.setLayoutParams(lp);
-        eyn.setLayoutParams(lp);
-        pst.setLayoutParams(lp);
+        encrypt.setLayoutParams(lp);
+        decrypt.setLayoutParams(lp);
+        paste.setLayoutParams(lp);
+        append.setLayoutParams(lp);
+        specialChars.setLayoutParams(lp);
+        antiMalware.setLayoutParams(lp);
         undo.setLayoutParams(lp);
         empty.setLayoutParams(lp);
         replace.setLayoutParams(lp);
         multiply.setLayoutParams(lp);
         copy.setLayoutParams(lp);
-        tocapital.setLayoutParams(lp);
-        tononcapital.setLayoutParams(lp);
+        upper.setLayoutParams(lp);
+        lower.setLayoutParams(lp);
+        wordify.setLayoutParams(lp);
+        reverseWords.setLayoutParams(lp);
         randomize.setLayoutParams(lp);
         share.setLayoutParams(lp);
         undo.setOnClickListener(new View.OnClickListener() {
@@ -165,158 +209,194 @@ public class Factory extends Activity {
                 undo();
             }
         });
-        eyn.setOnClickListener(new View.OnClickListener() {
+        encrypt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder ab = new AlertDialog.Builder(Factory.this);
-                ab.setTitle("Encrypt");
-                final EditText edt = new EditText(getApplicationContext());
-                edt.setHint("Key");
-                ab.setView(edt);
-                ab.setPositiveButton("Encrypt", new DialogInterface.OnClickListener() {
+                LinearLayout layout = new LinearLayout(getApplicationContext());
+                layout.setOrientation(LinearLayout.VERTICAL);
+                layout.setGravity(Gravity.CENTER);
+                layout.addView(new Title(getApplicationContext(), "Encrypt Menu"));
+                layout.addView(new Explain(getApplicationContext(), "Enter The Encryption Key To Encrypt Your Text:"));
+                final EditText edit = new EditText(getApplicationContext());
+                edit.setHint("Key");
+                edit.setInputType(EditorInfo.TYPE_CLASS_TEXT);
+                edit.setHintTextColor(Color.LTGRAY);
+                edit.setTextColor(Color.WHITE);
+                layout.addView(edit);
+                Button go = new Button(getApplicationContext());
+                go.setText(getString(R.string.encrypt));
+                go.setBackground(null);
+                go.setAllCaps(true);
+                go.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+                go.setTextColor(Color.WHITE);
+                go.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        final ProgressDialog pd;
-                        pd = new ProgressDialog(Factory.this);
-                        pd.setMessage("Encrypting...");
+                    public void onClick(View v) {
+                        final ProgressDialog pd = new ProgressDialog(Factory.this);
+                        pd.setMessage("Working...");
                         pd.setCancelable(false);
                         pd.show();
-                        new Thread(new Runnable() {
+                        new RunInBackground(new RunInBackground.Processed() {
                             @Override
-                            public void run() {
+                            public void processed(String s) {
                                 pd.cancel();
-                                final String text1 = Crypto.encrypt(input.getText().toString(), edt.getText().toString());
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        clip.set(input.getText().toString());
-                                        history = 0;
-                                        input.setText(text1);
-                                    }
-                                });
+                                appView.getDrag().close(true);
+                                clip.set(input.getText().toString());
+                                history = 0;
+                                input.setText(s);
                             }
-                        }).start();
+                        }, new RunInBackground.Process() {
+                            @Override
+                            public String process() {
+                                try {
+                                    return Crypto.encrypt(input.getText().toString(), edit.getText().toString());
+                                } catch (OutOfMemoryError | Exception ignored) {
+                                    return input.getText().toString();
+                                }
+                            }
+                        }).execute();
                     }
                 });
-                ab.show();
+                layout.addView(go);
+                appView.getDrag().setContent(layout);
+                appView.getDrag().open(false);
             }
         });
-        eyn.setOnLongClickListener(new View.OnLongClickListener() {
+        decrypt.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View view) {
-                AlertDialog.Builder ab = new AlertDialog.Builder(Factory.this);
-                ab.setTitle("Decrypt");
-                LinearLayout ll = new LinearLayout(getApplicationContext());
-                ll.setOrientation(LinearLayout.VERTICAL);
-                final EditText edt = new EditText(getApplicationContext());
-                edt.setHint("Key");
-                ab.setView(edt);
-                ab.setPositiveButton("Decrypt", new DialogInterface.OnClickListener() {
+            public void onClick(View view) {
+                LinearLayout layout = new LinearLayout(getApplicationContext());
+                layout.setOrientation(LinearLayout.VERTICAL);
+                layout.setGravity(Gravity.CENTER);
+                layout.addView(new Title(getApplicationContext(), "Decrypt Menu"));
+                layout.addView(new Explain(getApplicationContext(), "Enter The Encryption Key To Decrypt Your Text:"));
+                final EditText edit = new EditText(getApplicationContext());
+                edit.setHint("Key");
+                edit.setInputType(EditorInfo.TYPE_CLASS_TEXT);
+                edit.setHintTextColor(Color.LTGRAY);
+                edit.setTextColor(Color.WHITE);
+                layout.addView(edit);
+                Button go = new Button(getApplicationContext());
+                go.setText(getString(R.string.decrypt));
+                go.setBackground(null);
+                go.setAllCaps(true);
+                go.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+                go.setTextColor(Color.WHITE);
+                go.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        final ProgressDialog pd;
-                        pd = new ProgressDialog(Factory.this);
-                        pd.setMessage("Decrypting...");
+                    public void onClick(View v) {
+                        final ProgressDialog pd = new ProgressDialog(Factory.this);
+                        pd.setMessage("Working...");
                         pd.setCancelable(false);
                         pd.show();
-                        new Thread(new Runnable() {
+                        new RunInBackground(new RunInBackground.Processed() {
                             @Override
-                            public void run() {
+                            public void processed(String s) {
                                 pd.cancel();
-                                final String text1 = Crypto.decrypt(input.getText().toString(), edt.getText().toString());
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        clip.set(input.getText().toString());
-                                        history = 0;
-                                        input.setText(text1);
-                                    }
-                                });
+                                appView.getDrag().close(true);
+                                clip.set(input.getText().toString());
+                                history = 0;
+                                input.setText(s);
                             }
-                        }).start();
+                        }, new RunInBackground.Process() {
+                            @Override
+                            public String process() {
+                                try {
+                                    return Crypto.decrypt(input.getText().toString(), edit.getText().toString());
+                                } catch (OutOfMemoryError | Exception ignored) {
+                                    return input.getText().toString();
+                                }
+                            }
+                        }).execute();
                     }
                 });
-                ab.show();
-                return true;
+                layout.addView(go);
+                appView.getDrag().setContent(layout);
+                appView.getDrag().open(false);
             }
         });
         reverse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final ProgressDialog pd;
-                pd = new ProgressDialog(Factory.this);
-                pd.setMessage("Reversing...");
+                final ProgressDialog pd = new ProgressDialog(Factory.this);
+                pd.setMessage("Working...");
                 pd.setCancelable(false);
                 pd.show();
-                new Thread(new Runnable() {
+                new RunInBackground(new RunInBackground.Processed() {
                     @Override
-                    public void run() {
-                        final String s = reverse(input.getText().toString());
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                pd.cancel();
-                                clip.set(input.getText().toString());
-                                history = 0;
-                                input.setText(s);
-                            }
-                        });
+                    public void processed(String s) {
+                        pd.cancel();
+                        clip.set(input.getText().toString());
+                        history = 0;
+                        input.setText(s);
                     }
-                }).start();
+                }, new RunInBackground.Process() {
+                    @Override
+                    public String process() {
+                        try {
+                            return reverse(input.getText().toString());
+                        } catch (OutOfMemoryError | Exception ignored) {
+                            return input.getText().toString();
+                        }
+                    }
+                }).execute();
             }
         });
-        pst.setOnClickListener(new View.OnClickListener() {
+        paste.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                 final String s = clipboard.getPrimaryClip().getItemAt(0).getText().toString();
                 clip.set(input.getText().toString());
+                history = 0;
                 input.setText(s);
             }
         });
-        pst.setOnLongClickListener(new View.OnLongClickListener() {
+        append.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View view) {
+            public void onClick(View v) {
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                 final String s = input.getText().toString() + clipboard.getPrimaryClip().getItemAt(0).getText().toString();
                 clip.set(input.getText().toString());
+                history = 0;
                 input.setText(s);
-                return true;
             }
         });
-        reverse.setOnLongClickListener(new View.OnLongClickListener() {
+
+        reverseWords.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View view) {
-                final ProgressDialog pd;
-                pd = new ProgressDialog(Factory.this);
-                pd.setMessage("Word Reversing...");
+            public void onClick(View v) {
+                final ProgressDialog pd = new ProgressDialog(Factory.this);
+                pd.setMessage("Working...");
                 pd.setCancelable(false);
                 pd.show();
-                new Thread(new Runnable() {
+                new RunInBackground(new RunInBackground.Processed() {
                     @Override
-                    public void run() {
-                        String finale = "";
-                        String[] words = input.getText().toString().split(" ");
-                        for (int i = 0; i < words.length; i++) {
-                            if (finale.equals("")) {
-                                finale = finale + reverse(words[i]);
-                            } else {
-                                finale = finale + " " + reverse(words[i]);
-                            }
-                        }
-                        final String finalE = finale;
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                pd.cancel();
-                                clip.set(input.getText().toString());
-                                history = 0;
-                                input.setText(finalE);
-                            }
-                        });
+                    public void processed(String s) {
+                        pd.cancel();
+                        clip.set(input.getText().toString());
+                        history = 0;
+                        input.setText(s);
                     }
-                }).start();
-                return true;
+                }, new RunInBackground.Process() {
+                    @Override
+                    public String process() {
+                        try {
+                            StringBuilder builder = new StringBuilder();
+                            String[] words = input.getText().toString().split(" ");
+                            for (String word : words) {
+                                if (builder.length() == 0) {
+                                    builder.append(reverse(word));
+                                } else {
+                                    builder.append(" ").append(reverse(word));
+                                }
+                            }
+                            return builder.toString();
+                        } catch (OutOfMemoryError | Exception ignored) {
+                            return input.getText().toString();
+                        }
+                    }
+                }).execute();
             }
         });
         empty.setOnClickListener(new View.OnClickListener() {
@@ -329,89 +409,118 @@ public class Factory extends Activity {
         replace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder ab = new AlertDialog.Builder(Factory.this);
-                ab.setTitle("Replace");
-                LinearLayout ll = new LinearLayout(getApplicationContext());
-                ll.setOrientation(LinearLayout.VERTICAL);
-                final EditText edt = new EditText(getApplicationContext());
-                edt.setHint("Text To Replace");
-                final EditText tr = new EditText(getApplicationContext());
-                tr.setHint("Replacement Text");
-                ll.addView(edt);
-                ll.addView(tr);
-                ab.setView(ll);
-                ab.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
+                LinearLayout layout = new LinearLayout(getApplicationContext());
+                layout.setOrientation(LinearLayout.VERTICAL);
+                layout.setGravity(Gravity.CENTER);
+                layout.addView(new Title(getApplicationContext(), "Replace Menu"));
+                layout.addView(new Explain(getApplicationContext(), "Enter The String To Replace And The Replacement String:"));
+                final EditText edit = new EditText(getApplicationContext());
+                edit.setHint("To Replace");
+                edit.setInputType(EditorInfo.TYPE_CLASS_TEXT);
+                edit.setHintTextColor(Color.LTGRAY);
+                edit.setTextColor(Color.WHITE);
+                final EditText edit1 = new EditText(getApplicationContext());
+                edit1.setHint("Replacement");
+                edit1.setInputType(EditorInfo.TYPE_CLASS_TEXT);
+                edit1.setHintTextColor(Color.LTGRAY);
+                edit1.setTextColor(Color.WHITE);
+                layout.addView(edit);
+                layout.addView(edit1);
+                Button go = new Button(getApplicationContext());
+                go.setText(getString(R.string.replace));
+                go.setBackground(null);
+                go.setAllCaps(true);
+                go.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+                go.setTextColor(Color.WHITE);
+                go.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        final ProgressDialog pd;
-                        pd = new ProgressDialog(Factory.this);
-                        pd.setMessage("Replacing...");
+                    public void onClick(View v) {
+                        final ProgressDialog pd = new ProgressDialog(Factory.this);
+                        pd.setMessage("Working...");
                         pd.setCancelable(false);
                         pd.show();
-                        new Thread(new Runnable() {
+                        new RunInBackground(new RunInBackground.Processed() {
                             @Override
-                            public void run() {
-                                String text1 = input.getText().toString();
-                                if (text1.contains(edt.getText().toString())) {
-                                    final String nt = text1.replaceAll(edt.getText().toString(), tr.getText().toString());
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            pd.cancel();
-                                            clip.set(input.getText().toString());
-                                            history = 0;
-                                            input.setText(nt);
-                                        }
-                                    });
+                            public void processed(String s) {
+                                pd.cancel();
+                                appView.getDrag().close(true);
+                                clip.set(input.getText().toString());
+                                history = 0;
+                                input.setText(s);
+                            }
+                        }, new RunInBackground.Process() {
+                            @Override
+                            public String process() {
+                                try {
+                                    return input.getText().toString().replaceAll(edit.getText().toString(),edit1.getText().toString());
+                                } catch (OutOfMemoryError | Exception ignored) {
+                                    return input.getText().toString();
                                 }
                             }
-                        }).start();
+                        }).execute();
                     }
                 });
-                ab.show();
+                layout.addView(go);
+                appView.getDrag().setContent(layout);
+                appView.getDrag().open(false);
             }
         });
         multiply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder ab = new AlertDialog.Builder(Factory.this);
-                ab.setTitle("Multiply");
-                final EditText edt = new EditText(getApplicationContext());
-                edt.setHint("Number Of Times");
-                edt.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
-                ab.setView(edt);
-                ab.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
+                LinearLayout layout = new LinearLayout(getApplicationContext());
+                layout.setOrientation(LinearLayout.VERTICAL);
+                layout.setGravity(Gravity.CENTER);
+                layout.addView(new Title(getApplicationContext(), "Multiply Menu"));
+                layout.addView(new Explain(getApplicationContext(), "Enter The Number Of Times You Want Your Text Multiplied:"));
+                final EditText edit = new EditText(getApplicationContext());
+                edit.setHint("Number");
+                edit.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
+                edit.setHintTextColor(Color.LTGRAY);
+                edit.setTextColor(Color.WHITE);
+                layout.addView(edit);
+                Button go = new Button(getApplicationContext());
+                go.setText(getString(R.string.multiply));
+                go.setBackground(null);
+                go.setAllCaps(true);
+                go.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+                go.setTextColor(Color.WHITE);
+                go.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        final ProgressDialog pd;
-                        pd = new ProgressDialog(Factory.this);
-                        pd.setMessage("Multiplying...");
+                    public void onClick(View v) {
+                        final ProgressDialog pd = new ProgressDialog(Factory.this);
+                        pd.setMessage("Working...");
                         pd.setCancelable(false);
                         pd.show();
-                        final String text1 = input.getText().toString();
-                        final int times = Integer.parseInt(edt.getText().toString());
-                        new Thread(new Runnable() {
+                        new RunInBackground(new RunInBackground.Processed() {
                             @Override
-                            public void run() {
-                                String ret = "";
-                                for (int i = 0; i < times; i++) {
-                                    ret = ret + text1;
-                                }
-                                final String ret2 = ret;
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        pd.cancel();
-                                        clip.set(input.getText().toString());
-                                        history = 0;
-                                        input.setText(ret2);
-                                    }
-                                });
+                            public void processed(String s) {
+                                pd.cancel();
+                                appView.getDrag().close(true);
+                                clip.set(input.getText().toString());
+                                history = 0;
+                                input.setText(s);
                             }
-                        }).start();
+                        }, new RunInBackground.Process() {
+                            @Override
+                            public String process() {
+                                try {
+                                    StringBuilder builder = new StringBuilder();
+                                    String text = input.getText().toString();
+                                    for (int a = 0; a < Integer.parseInt(edit.getText().toString()); a++) {
+                                        builder.append(text);
+                                    }
+                                    return builder.toString();
+                                } catch (OutOfMemoryError | Exception ignored) {
+                                    return input.getText().toString();
+                                }
+                            }
+                        }).execute();
                     }
                 });
-                ab.show();
+                layout.addView(go);
+                appView.getDrag().setContent(layout);
+                appView.getDrag().open(false);
             }
         });
         copy.setOnClickListener(new View.OnClickListener() {
@@ -422,110 +531,132 @@ public class Factory extends Activity {
                 clipboard.setPrimaryClip(clip);
             }
         });
-        tocapital.setOnClickListener(new View.OnClickListener() {
+        wordify.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        final String s = input.getText().toString().toUpperCase();
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                clip.set(input.getText().toString());
-                                history = 0;
-                                input.setText(s);
-                            }
-                        });
-                    }
-                }).start();
-            }
-        });
-        tocapital.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                final ProgressDialog pd;
-                pd = new ProgressDialog(Factory.this);
-                pd.setMessage("Wordify...");
+            public void onClick(View v) {
+                final ProgressDialog pd = new ProgressDialog(Factory.this);
+                pd.setMessage("Working...");
                 pd.setCancelable(false);
                 pd.show();
-                new Thread(new Runnable() {
+                new RunInBackground(new RunInBackground.Processed() {
                     @Override
-                    public void run() {
-                        String old = input.getText().toString();
-                        final StringBuilder b = new StringBuilder(old);
-                        for (int a = 0; a < old.length(); a++) {
-                            if (a == 0 || old.charAt(a - 1) == ' ') {
-                                b.setCharAt(a, (String.valueOf(old.charAt(a))).toUpperCase().charAt(0));
-                            }
-                        }
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                pd.cancel();
-                                clip.set(input.getText().toString());
-                                history = 0;
-                                input.setText(b.toString());
-                            }
-                        });
+                    public void processed(String s) {
+                        pd.cancel();
+                        clip.set(input.getText().toString());
+                        history = 0;
+                        input.setText(s);
                     }
-                }).start();
-                return true;
+                }, new RunInBackground.Process() {
+                    @Override
+                    public String process() {
+                        try {
+                            String old = input.getText().toString();
+                            final StringBuilder b = new StringBuilder(old);
+                            for (int a = 0; a < old.length(); a++) {
+                                if (a == 0 || old.charAt(a - 1) == ' ') {
+                                    b.setCharAt(a, (String.valueOf(old.charAt(a))).toUpperCase().charAt(0));
+                                }
+                            }
+                            return b.toString();
+                        } catch (OutOfMemoryError | Exception ignored) {
+                            return input.getText().toString();
+                        }
+                    }
+                }).execute();
             }
         });
-        tononcapital.setOnClickListener(new View.OnClickListener() {
+        lower.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new Thread(new Runnable() {
+                final ProgressDialog pd = new ProgressDialog(Factory.this);
+                pd.setMessage("Working...");
+                pd.setCancelable(false);
+                pd.show();
+                new RunInBackground(new RunInBackground.Processed() {
                     @Override
-                    public void run() {
-                        final String s = input.getText().toString().toLowerCase();
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                clip.set(input.getText().toString());
-                                history = 0;
-                                input.setText(s);
-                            }
-                        });
+                    public void processed(String s) {
+                        pd.cancel();
+                        clip.set(input.getText().toString());
+                        history = 0;
+                        input.setText(s);
                     }
-                }).start();
+                }, new RunInBackground.Process() {
+                    @Override
+                    public String process() {
+                        try {
+                            String old = input.getText().toString();
+                            return old.toLowerCase();
+                        } catch (OutOfMemoryError | Exception ignored) {
+                            return input.getText().toString();
+                        }
+                    }
+                }).execute();
+            }
+        });
+        upper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final ProgressDialog pd = new ProgressDialog(Factory.this);
+                pd.setMessage("Working...");
+                pd.setCancelable(false);
+                pd.show();
+                new RunInBackground(new RunInBackground.Processed() {
+                    @Override
+                    public void processed(String s) {
+                        pd.cancel();
+                        clip.set(input.getText().toString());
+                        history = 0;
+                        input.setText(s);
+                    }
+                }, new RunInBackground.Process() {
+                    @Override
+                    public String process() {
+                        try {
+                            String old = input.getText().toString();
+                            return old.toUpperCase();
+                        } catch (OutOfMemoryError | Exception ignored) {
+                            return input.getText().toString();
+                        }
+                    }
+                }).execute();
             }
         });
         randomize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final ProgressDialog pd;
-                pd = new ProgressDialog(Factory.this);
-                pd.setMessage("Randomizing...");
+                final ProgressDialog pd = new ProgressDialog(Factory.this);
+                pd.setMessage("Working...");
                 pd.setCancelable(false);
                 pd.show();
-                new Thread(new Runnable() {
+                new RunInBackground(new RunInBackground.Processed() {
                     @Override
-                    public void run() {
-                        String nw = "";
-                        String text1 = input.getText().toString();
-                        ArrayList<String> allth = new ArrayList<>();
-                        for (int i = 0; i < text1.length(); i++) {
-                            allth.add(text1.charAt(i) + "");
-                        }
-                        for (int i = 0; i < text1.length(); i++) {
-                            int rnd = new Random().nextInt(allth.size());
-                            nw = nw + allth.get(rnd);
-                            allth.remove(rnd);
-                        }
-                        final String nw2 = nw;
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                pd.cancel();
-                                clip.set(input.getText().toString());
-                                history = 0;
-                                input.setText(nw2);
-                            }
-                        });
+                    public void processed(String s) {
+                        pd.cancel();
+                        clip.set(input.getText().toString());
+                        history = 0;
+                        input.setText(s);
                     }
-                }).start();
+                }, new RunInBackground.Process() {
+                    @Override
+                    public String process() {
+                        try {
+                            StringBuilder builder = new StringBuilder();
+                            ArrayList<Character> chars = new ArrayList<>();
+                            char[] array = input.getText().toString().toCharArray();
+                            for (char value : array) {
+                                chars.add(value);
+                            }
+                            while (chars.size() != 0) {
+                                int random = new Random().nextInt(chars.size());
+                                builder.append(chars.get(random));
+                                chars.remove(random);
+                            }
+                            return builder.toString();
+                        } catch (OutOfMemoryError | Exception ignored) {
+                            return input.getText().toString();
+                        }
+                    }
+                }).execute();
             }
         });
         share.setOnClickListener(new View.OnClickListener() {
@@ -537,14 +668,16 @@ public class Factory extends Activity {
         all.addView(input);
         all.addView(bottom);
         bottom.addView(left);
+        bottom.addView(middle);
         bottom.addView(right);
-        left.setLayoutParams(new LinearLayout.LayoutParams(Device.screenX(getApplicationContext())/2, ViewGroup.LayoutParams.MATCH_PARENT));
-        right.setLayoutParams(new LinearLayout.LayoutParams(Device.screenX(getApplicationContext())/2, ViewGroup.LayoutParams.MATCH_PARENT));
+        left.setLayoutParams(new LinearLayout.LayoutParams(Device.screenX(getApplicationContext()) / 3, ViewGroup.LayoutParams.MATCH_PARENT));
+        middle.setLayoutParams(new LinearLayout.LayoutParams(Device.screenX(getApplicationContext()) / 3, ViewGroup.LayoutParams.MATCH_PARENT));
+        right.setLayoutParams(new LinearLayout.LayoutParams(Device.screenX(getApplicationContext()) / 3, ViewGroup.LayoutParams.MATCH_PARENT));
         appView.setContent(all);
         setContentView(appView);
     }
 
-    void share(EditText et) {
+    private void share(EditText et) {
         Intent s = new Intent(Intent.ACTION_SEND);
         s.putExtra(Intent.EXTRA_TEXT, et.getText().toString());
         s.setType("text/plain");
@@ -560,14 +693,40 @@ public class Factory extends Activity {
         return n;
     }
 
-    void undo() {
-        input.setText(clip.getHistory().get(clip.getHistory().size() - 1 - history));
-        if (history < clip.getHistory().size() - 1)
-            history++;
+    private void undo() {
+        if (clip.getHistory().size() > 0) {
+            input.setText(clip.getHistory().get(clip.getHistory().size() - 1 - history));
+            if (history < clip.getHistory().size() - 1)
+                history++;
+        }
     }
 
     @Override
     public void onBackPressed() {
-        undo();
+        if (appView.getDrag().isOpen()) {
+            appView.getDrag().close(true);
+        } else {
+            undo();
+        }
+    }
+
+    class Title extends TextView {
+        public Title(Context c, String text) {
+            super(c);
+            setText(text);
+            setTextColor(Color.WHITE);
+            setTextSize(30);
+            setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+        }
+    }
+
+    class Explain extends TextView {
+        public Explain(Context c, String text) {
+            super(c);
+            setText(text);
+            setTextColor(Color.WHITE);
+            setTextSize(22);
+            setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.ITALIC));
+        }
     }
 }

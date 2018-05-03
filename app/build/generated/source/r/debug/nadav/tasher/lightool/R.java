@@ -8,7 +8,7 @@ package nadav.tasher.lightool;
 
 public final class R {
     public static final class drawable {
-        public static final int ic_add = 0x7f020002;
-        public static final int ic_delete = 0x7f020003;
+        public static final int ic_add = 0x7f010002;
+        public static final int ic_delete = 0x7f010003;
     }
 }

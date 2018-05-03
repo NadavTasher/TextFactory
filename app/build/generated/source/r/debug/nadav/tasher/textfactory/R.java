@@ -8,35 +8,35 @@
 package nadav.tasher.textfactory;
 
 public final class R {
-  public static final class color {
-    public static final int colorAccent=0x7f010000;
-    public static final int colorPrimary=0x7f010001;
-    public static final int colorPrimaryDark=0x7f010002;
-  }
   public static final class drawable {
-    public static final int back=0x7f020000;
-    public static final int button=0x7f020001;
-    public static final int ic_add=0x7f020002;
-    public static final int ic_delete=0x7f020003;
-    public static final int ic_tefa_r=0x7f020004;
+    public static final int back=0x7f010000;
+    public static final int button=0x7f010001;
+    public static final int ic_add=0x7f010002;
+    public static final int ic_delete=0x7f010003;
+    public static final int ic_tefa_r=0x7f010004;
   }
   public static final class mipmap {
-    public static final int ic_launcher=0x7f030000;
+    public static final int ic_launcher=0x7f020000;
   }
   public static final class string {
-    public static final int app_name=0x7f040000;
-    public static final int cp=0x7f040001;
-    public static final int emp=0x7f040002;
-    public static final int endy=0x7f040003;
-    public static final int lc=0x7f040004;
-    public static final int mp=0x7f040005;
-    public static final int msu=0x7f040006;
-    public static final int pst=0x7f040007;
-    public static final int rev=0x7f040008;
-    public static final int rpl=0x7f040009;
-    public static final int sr=0x7f04000a;
-    public static final int svld=0x7f04000b;
-    public static final int uc=0x7f04000c;
-    public static final int undo=0x7f04000d;
+    public static final int anti_malware=0x7f030000;
+    public static final int app_name=0x7f030001;
+    public static final int append=0x7f030002;
+    public static final int copy=0x7f030003;
+    public static final int decrypt=0x7f030004;
+    public static final int empty=0x7f030005;
+    public static final int encrypt=0x7f030006;
+    public static final int lower=0x7f030007;
+    public static final int multiply=0x7f030008;
+    public static final int paste=0x7f030009;
+    public static final int randomize=0x7f03000a;
+    public static final int replace=0x7f03000b;
+    public static final int reverse=0x7f03000c;
+    public static final int reverse_words=0x7f03000d;
+    public static final int share=0x7f03000e;
+    public static final int special_chars=0x7f03000f;
+    public static final int undo=0x7f030010;
+    public static final int upper=0x7f030011;
+    public static final int wordify=0x7f030012;
   }
 }
