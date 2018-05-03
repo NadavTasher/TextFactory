@@ -1,4 +1,0 @@
-#Wed Oct 04 02:30:31 EDT 2017
-base.0=/home/nadav/AndroidStudioProjects/TextFactory/app/build/intermediates/transforms/dex/release/folders/1000/1f/main
-renamed.0=classes.dex
-file.0=/home/nadav/AndroidStudioProjects/TextFactory/app/build/intermediates/transforms/dex/release/folders/1000/1f/main/classes.dex

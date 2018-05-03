@@ -1,36 +1,46 @@
 -- Merging decision tree log ---
 manifest
 ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:2:1-25:12
+INJECTED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:2:1-25:12
+INJECTED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:2:1-25:12
+INJECTED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:2:1-25:12
+MERGED from [:lightool-release] /home/nadav/.gradle/caches/transforms-1/files-1.1/lightool-release.aar/82d0a2e3f202d8179a4ead8c1f8d9e66/AndroidManifest.xml:2:1-18:12
+INJECTED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:2:1-25:12
+INJECTED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:2:1-25:12
+INJECTED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:2:1-25:12
 	package
 		ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:3:5-39
 		INJECTED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml
 		INJECTED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml
+		ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:2:1-25:12
+		INJECTED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml
+		ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:2:1-25:12
 		INJECTED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml
 	xmlns:android
 		ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:2:11-69
-	android:versionCode
-		INJECTED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml
-		INJECTED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml
 application
 ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:5:5-23:19
-MERGED from [TextFactory:lightool-release:unspecified] /home/nadav/.android/build-cache/6b8351d7186adfca4a2f240209bb8c99fd5f1cbe/output/AndroidManifest.xml:14:5-18:19
-	android:label
-		ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:8:9-41
+MERGED from [:lightool-release] /home/nadav/.gradle/caches/transforms-1/files-1.1/lightool-release.aar/82d0a2e3f202d8179a4ead8c1f8d9e66/AndroidManifest.xml:16:5-20
+MERGED from [:lightool-release] /home/nadav/.gradle/caches/transforms-1/files-1.1/lightool-release.aar/82d0a2e3f202d8179a4ead8c1f8d9e66/AndroidManifest.xml:16:5-20
 	android:supportsRtl
 		ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:9:9-35
-	android:allowBackup
-		ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:6:9-35
+	android:label
+		ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:8:9-41
 	android:icon
 		ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:7:9-43
+	android:allowBackup
+		ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:6:9-35
 	android:theme
 		ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:10:9-66
 activity#nadav.tasher.textfactory.Factory
 ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:11:9-22:20
 	android:name
 		ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:11:19-42
-intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
 ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:12:13-16:29
 action#android.intent.action.MAIN
 ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:13:17-69
@@ -40,7 +50,7 @@ category#android.intent.category.LAUNCHER
 ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:15:17-77
 	android:name
 		ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:15:27-74
-intent-filter#android.intent.action.SEND+android.intent.category.DEFAULT
+intent-filter#action:name:android.intent.action.SEND+category:name:android.intent.category.DEFAULT+data:mimeType:text/*
 ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:17:13-21:29
 action#android.intent.action.SEND
 ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:18:17-69
@@ -56,18 +66,33 @@ ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidMan
 		ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml:20:23-48
 uses-sdk
 INJECTED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
-MERGED from [TextFactory:lightool-release:unspecified] /home/nadav/.android/build-cache/6b8351d7186adfca4a2f240209bb8c99fd5f1cbe/output/AndroidManifest.xml:7:5-9:41
+INJECTED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml
+INJECTED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml
+MERGED from [:lightool-release] /home/nadav/.gradle/caches/transforms-1/files-1.1/lightool-release.aar/82d0a2e3f202d8179a4ead8c1f8d9e66/AndroidManifest.xml:7:5-9:41
+MERGED from [:lightool-release] /home/nadav/.gradle/caches/transforms-1/files-1.1/lightool-release.aar/82d0a2e3f202d8179a4ead8c1f8d9e66/AndroidManifest.xml:7:5-9:41
+INJECTED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml
+INJECTED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml
 	android:targetSdkVersion
 		INJECTED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml
+		ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml
 		INJECTED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml
 	android:minSdkVersion
 		INJECTED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml
+		ADDED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml
 		INJECTED from /home/nadav/AndroidStudioProjects/TextFactory/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.BLUETOOTH
+ADDED from [:lightool-release] /home/nadav/.gradle/caches/transforms-1/files-1.1/lightool-release.aar/82d0a2e3f202d8179a4ead8c1f8d9e66/AndroidManifest.xml:11:5-68
+	android:name
+		ADDED from [:lightool-release] /home/nadav/.gradle/caches/transforms-1/files-1.1/lightool-release.aar/82d0a2e3f202d8179a4ead8c1f8d9e66/AndroidManifest.xml:11:22-65
+uses-permission#android.permission.BLUETOOTH_ADMIN
+ADDED from [:lightool-release] /home/nadav/.gradle/caches/transforms-1/files-1.1/lightool-release.aar/82d0a2e3f202d8179a4ead8c1f8d9e66/AndroidManifest.xml:12:5-74
+	android:name
+		ADDED from [:lightool-release] /home/nadav/.gradle/caches/transforms-1/files-1.1/lightool-release.aar/82d0a2e3f202d8179a4ead8c1f8d9e66/AndroidManifest.xml:12:22-71
 uses-permission#android.permission.INTERNET
-ADDED from [TextFactory:lightool-release:unspecified] /home/nadav/.android/build-cache/6b8351d7186adfca4a2f240209bb8c99fd5f1cbe/output/AndroidManifest.xml:11:5-67
+ADDED from [:lightool-release] /home/nadav/.gradle/caches/transforms-1/files-1.1/lightool-release.aar/82d0a2e3f202d8179a4ead8c1f8d9e66/AndroidManifest.xml:13:5-67
 	android:name
-		ADDED from [TextFactory:lightool-release:unspecified] /home/nadav/.android/build-cache/6b8351d7186adfca4a2f240209bb8c99fd5f1cbe/output/AndroidManifest.xml:11:22-64
+		ADDED from [:lightool-release] /home/nadav/.gradle/caches/transforms-1/files-1.1/lightool-release.aar/82d0a2e3f202d8179a4ead8c1f8d9e66/AndroidManifest.xml:13:22-64
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from [TextFactory:lightool-release:unspecified] /home/nadav/.android/build-cache/6b8351d7186adfca4a2f240209bb8c99fd5f1cbe/output/AndroidManifest.xml:12:5-79
+ADDED from [:lightool-release] /home/nadav/.gradle/caches/transforms-1/files-1.1/lightool-release.aar/82d0a2e3f202d8179a4ead8c1f8d9e66/AndroidManifest.xml:14:5-79
 	android:name
-		ADDED from [TextFactory:lightool-release:unspecified] /home/nadav/.android/build-cache/6b8351d7186adfca4a2f240209bb8c99fd5f1cbe/output/AndroidManifest.xml:12:22-76
+		ADDED from [:lightool-release] /home/nadav/.gradle/caches/transforms-1/files-1.1/lightool-release.aar/82d0a2e3f202d8179a4ead8c1f8d9e66/AndroidManifest.xml:14:22-76

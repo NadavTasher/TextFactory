@@ -12,12 +12,12 @@
         "source": "/home/nadav/AndroidStudioProjects/TextFactory/app/src/main/res/drawable/ic_tefa_r.xml"
     },
     {
-        "merged": "/home/nadav/AndroidStudioProjects/TextFactory/app/build/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher.png.flat",
-        "source": "/home/nadav/AndroidStudioProjects/TextFactory/app/src/main/res/mipmap-mdpi/ic_launcher.png"
-    },
-    {
         "merged": "/home/nadav/AndroidStudioProjects/TextFactory/app/build/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher_round.png.flat",
         "source": "/home/nadav/AndroidStudioProjects/TextFactory/app/src/main/res/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/home/nadav/AndroidStudioProjects/TextFactory/app/build/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "/home/nadav/AndroidStudioProjects/TextFactory/app/src/main/res/mipmap-mdpi/ic_launcher.png"
     },
     {
         "merged": "/home/nadav/AndroidStudioProjects/TextFactory/app/build/intermediates/res/merged/debug/drawable_ic_launcher_foreground.xml.flat",
