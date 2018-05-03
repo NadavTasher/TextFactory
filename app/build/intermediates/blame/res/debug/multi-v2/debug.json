@@ -4,20 +4,28 @@
             "outputFile": "/home/nadav/AndroidStudioProjects/TextFactory/app/build/intermediates/res/merged/debug/values_values.arsc.flat",
             "map": [
                 {
+                    "source": "/home/nadav/AndroidStudioProjects/TextFactory/app/src/main/res/values/ic_launcher_background.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "56",
+                        "endOffsets": "107"
+                    }
+                },
+                {
                     "source": "/home/nadav/AndroidStudioProjects/TextFactory/app/src/main/res/values/strings.xml",
                     "from": {
-                        "startLines": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,10,-1,-1,-1",
-                        "startColumns": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,4,-1,-1,-1",
-                        "startOffsets": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,445,-1,-1,-1",
-                        "endColumns": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,55,-1,-1,-1",
-                        "endOffsets": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,496,-1,-1,-1"
+                        "startLines": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startColumns": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startOffsets": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"
                     },
                     "to": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+                        "startLines": "3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,109,159,201,239,283,323,367,412,458,498,546,590,634,689,729,785,823,868",
+                        "startOffsets": "112,166,216,258,296,340,380,424,469,515,555,603,647,691,746,786,842,880,925",
                         "endColumns": "53,49,41,37,43,39,43,44,45,39,47,43,43,54,39,55,37,44,43",
-                        "endOffsets": "104,154,196,234,278,318,362,407,453,493,541,585,629,684,724,780,818,863,907"
+                        "endOffsets": "161,211,253,291,335,375,419,464,510,550,598,642,686,741,781,837,875,920,964"
                     }
                 }
             ]
