@@ -9,10 +9,10 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.Gravity;
@@ -32,87 +32,64 @@ import org.secrypto.java.Crypto;
 import java.util.ArrayList;
 import java.util.Random;
 
+import nadav.tasher.lightool.graphics.views.appview.AppView;
 import nadav.tasher.lightool.info.Device;
 import nadav.tasher.lightool.tools.Animations;
 import nadav.tasher.lightool.tools.transfer.Clip;
 
 public class Factory extends Activity {
-    int colo = Color.parseColor("#21557F");
-    int
-            history = 0;
-    EditText input;
-    Clip<String> clip = new Clip<>();
+    static final int appColor = 0xFF45679a;
+    private int history = 0;
+    private EditText input;
+    private Clip<String> clip = new Clip<>();
+    private AppView appView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        start();
+        initStageA();
     }
 
-    void doStart() {
+    private void initStageA() {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
+        initStageB();
+    }
+
+    private void initStageB() {
         final Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(colo);
-        window.setNavigationBarColor(colo);
+        appView = new AppView(getApplicationContext(), getDrawable(R.drawable.ic_tefa_r), 0x333333);
+        appView.setBackgroundColor(appColor);
+        appView.overlaySelf(getWindow());
+        initStageBC();
+    }
+
+    private void initStageBC() {
         final Bitmap ico = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-        ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(getString(R.string.app_name), ico, colo);
+        ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(getString(R.string.app_name), ico, appView.getDrag().calculateOverlayedColor(appColor));
         setTaskDescription(taskDescription);
-        final LinearLayout ll = new LinearLayout(this);
-        ll.setGravity(Gravity.CENTER);
-        ll.setOrientation(LinearLayout.VERTICAL);
-        ll.setBackgroundColor(colo);
-        final ImageView icon = new ImageView(this);
-        Drawable iconDr = getDrawable(R.drawable.ic_tefa_r);
-        icon.setImageDrawable(iconDr);
-        ll.addView(icon);
-        setContentView(ll);
-        app();
+        initStageC();
     }
 
-    void share(EditText et) {
-        Intent s = new Intent(Intent.ACTION_SEND);
-        s.putExtra(Intent.EXTRA_TEXT, et.getText().toString());
-        s.setType("text/plain");
-        s.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(Intent.createChooser(s, "Share"));
-    }
-
-    void app() {
-        LinearLayout main = new LinearLayout(this);
-        main.setOrientation(LinearLayout.VERTICAL);
-        main.setGravity(Gravity.START);
-        LinearLayout amain = new LinearLayout(this);
-        amain.setOrientation(LinearLayout.VERTICAL);
-        amain.setGravity(Gravity.START);
-        int screenY = Device.screenY(this);
-        final LinearLayout navbarAll = new LinearLayout(this);
-        navbarAll.setBackgroundColor(colo);
-        navbarAll.setOrientation(LinearLayout.HORIZONTAL);
-        navbarAll.setGravity(Gravity.CENTER);
-        final ImageView nutIcon = new ImageView(this);
-        final int nutSize = (screenY / 8) - screenY / 30;
-        LinearLayout.LayoutParams nutParms = new LinearLayout.LayoutParams(nutSize, nutSize);
-        nutIcon.setLayoutParams(nutParms);
-        nutIcon.setImageDrawable(getDrawable(R.drawable.ic_tefa_r));
-        final ObjectAnimator anim = ObjectAnimator.ofFloat(nutIcon, View.TRANSLATION_X, Animations.VIBRATE_SMALL);
-        anim.setDuration(1500);
-        anim.setRepeatMode(ObjectAnimator.RESTART);
-        anim.setRepeatCount(ObjectAnimator.INFINITE);
-        navbarAll.addView(nutIcon);
-        int navY = screenY / 8;
-        LinearLayout.LayoutParams navParms = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, navY);
-        navParms.gravity = Gravity.START;
-        navbarAll.setLayoutParams(navParms);
-        anim.start();
-        amain.addView(navbarAll);
+    private void initStageC() {
+        LinearLayout all=new LinearLayout(getApplicationContext());
+        all.setOrientation(LinearLayout.VERTICAL);
+        all.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.START);
+        LinearLayout bottom=new LinearLayout(getApplicationContext());
+        bottom.setOrientation(LinearLayout.HORIZONTAL);
+        bottom.setGravity(Gravity.CENTER);
+        LinearLayout left=new LinearLayout(getApplicationContext());
+        left.setOrientation(LinearLayout.VERTICAL);
+        left.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.START);
+        LinearLayout right=new LinearLayout(getApplicationContext());
+        right.setOrientation(LinearLayout.VERTICAL);
+        right.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.START);
         input = new EditText(this);
         input.setHint("Your Text");
         if (getIntent().hasExtra(Intent.EXTRA_TEXT)) {
             input.setText(getIntent().getStringExtra(Intent.EXTRA_TEXT));
         }
-        main.setBackgroundColor(colo);
-        main.setPadding(3, 3, 3, 3);
         input.setPadding(10, 10, 10, 10);
         input.setTextColor(Color.BLACK);
         input.setHintTextColor(Color.GRAY);
@@ -131,18 +108,18 @@ public class Factory extends Activity {
         tononcapital.setText(R.string.lc);
         randomize.setText(R.string.msu);
         share.setText(R.string.sr);
-        main.addView(empty);
-        main.addView(undo);
-        main.addView(copy);
-        main.addView(share);
-        main.addView(pst);
-        main.addView(eyn);
-        main.addView(reverse);
-        main.addView(replace);
-        main.addView(multiply);
-        main.addView(tocapital);
-        main.addView(tononcapital);
-        main.addView(randomize);
+        left.addView(empty);
+        left.addView(undo);
+        left.addView(copy);
+        left.addView(share);
+        right.addView(pst);
+        left.addView(eyn);
+        left.addView(reverse);
+        right.addView(replace);
+        right.addView(multiply);
+        right.addView(tocapital);
+        right.addView(tononcapital);
+        right.addView(randomize);
         copy.setBackground(getDrawable(R.drawable.button));
         pst.setBackground(getDrawable(R.drawable.button));
         eyn.setBackground(getDrawable(R.drawable.button));
@@ -168,7 +145,7 @@ public class Factory extends Activity {
         tononcapital.setTransformationMethod(null);
         randomize.setTransformationMethod(null);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        input.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Device.screenY(getApplicationContext()) / 3));
+        input.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Device.screenY(getApplicationContext()) / 2));
         input.setVerticalScrollBarEnabled(true);
         reverse.setLayoutParams(lp);
         eyn.setLayoutParams(lp);
@@ -557,13 +534,22 @@ public class Factory extends Activity {
                 share(input);
             }
         });
-        amain.addView(input);
-        ScrollView scrollView = new ScrollView(this);
-        scrollView.addView(main);
-        amain.addView(scrollView);
-        scrollView.setBackgroundColor(colo);
-        amain.setBackgroundColor(colo);
-        setContentView(amain);
+        all.addView(input);
+        all.addView(bottom);
+        bottom.addView(left);
+        bottom.addView(right);
+        left.setLayoutParams(new LinearLayout.LayoutParams(Device.screenX(getApplicationContext())/2, ViewGroup.LayoutParams.MATCH_PARENT));
+        right.setLayoutParams(new LinearLayout.LayoutParams(Device.screenX(getApplicationContext())/2, ViewGroup.LayoutParams.MATCH_PARENT));
+        appView.setContent(all);
+        setContentView(appView);
+    }
+
+    void share(EditText et) {
+        Intent s = new Intent(Intent.ACTION_SEND);
+        s.putExtra(Intent.EXTRA_TEXT, et.getText().toString());
+        s.setType("text/plain");
+        s.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(Intent.createChooser(s, "Share"));
     }
 
     private String reverse(String s) {
@@ -574,13 +560,9 @@ public class Factory extends Activity {
         return n;
     }
 
-    void start() {
-        doStart();
-    }
-
     void undo() {
         input.setText(clip.getHistory().get(clip.getHistory().size() - 1 - history));
-        if (history < clip.getHistory().size()-1)
+        if (history < clip.getHistory().size() - 1)
             history++;
     }
 
