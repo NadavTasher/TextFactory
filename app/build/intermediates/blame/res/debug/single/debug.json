@@ -20,6 +20,14 @@
         "source": "/home/nadav/AndroidStudioProjects/TextFactory/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
     },
     {
+        "merged": "/home/nadav/AndroidStudioProjects/TextFactory/app/build/intermediates/res/merged/debug/drawable_ic_add.xml.flat",
+        "source": "/home/nadav/.gradle/caches/transforms-1/files-1.1/lightool-release.aar/82d0a2e3f202d8179a4ead8c1f8d9e66/res/drawable/ic_add.xml"
+    },
+    {
+        "merged": "/home/nadav/AndroidStudioProjects/TextFactory/app/build/intermediates/res/merged/debug/drawable_ic_delete.xml.flat",
+        "source": "/home/nadav/.gradle/caches/transforms-1/files-1.1/lightool-release.aar/82d0a2e3f202d8179a4ead8c1f8d9e66/res/drawable/ic_delete.xml"
+    },
+    {
         "merged": "/home/nadav/AndroidStudioProjects/TextFactory/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher.png.flat",
         "source": "/home/nadav/AndroidStudioProjects/TextFactory/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
     },

@@ -3,7 +3,9 @@ int color colorPrimary 0x7f010001
 int color colorPrimaryDark 0x7f010002
 int drawable back 0x7f020000
 int drawable button 0x7f020001
-int drawable ic_tefa_r 0x7f020002
+int drawable ic_add 0x7f020002
+int drawable ic_delete 0x7f020003
+int drawable ic_tefa_r 0x7f020004
 int mipmap ic_launcher 0x7f030000
 int string app_name 0x7f040000
 int string cp 0x7f040001
