@@ -2,12 +2,10 @@ package nadav.tasher.textfactory;
 
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -25,12 +23,14 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.secrypto.java.Crypto;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 import nadav.tasher.lightool.graphics.views.appview.AppView;
 import nadav.tasher.lightool.graphics.views.appview.navigation.Drag;
@@ -209,6 +209,88 @@ public class Factory extends Activity {
                 undo();
             }
         });
+        specialChars.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LinearLayout layout = new LinearLayout(getApplicationContext());
+                layout.setOrientation(LinearLayout.VERTICAL);
+                layout.setGravity(Gravity.CENTER);
+                layout.addView(new Title(getApplicationContext(), "Special Characters"));
+                layout.addView(new Explain(getApplicationContext(), "Click On A Character To Append It To The Text:"));
+                for (int a = 0; a < Special.specialCharacters.length; a++) {
+                    Button b = new Button(getApplicationContext());
+                    b.setBackground(getDrawable(R.drawable.button));
+                    b.setTransformationMethod(null);
+                    b.setText(Special.specialCharacters[a].getDescription());
+                    b.setTextColor(Color.WHITE);
+                    final int finalA = a;
+                    b.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            appView.getDrag().close(true);
+                            clip.set(input.getText().toString());
+                            history = 0;
+                            String newS = input.getText().toString() + Special.specialCharacters[finalA].getChar();
+                            input.setText(newS);
+                        }
+                    });
+                    layout.addView(b);
+                }
+                ScrollView sv = new ScrollView(getApplicationContext());
+                sv.setFillViewport(true);
+                sv.addView(layout);
+                appView.getDrag().setContent(sv);
+                appView.getDrag().open(false);
+            }
+        });
+        antiMalware.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final LinearLayout layout = new LinearLayout(getApplicationContext());
+                layout.setOrientation(LinearLayout.VERTICAL);
+                layout.setGravity(Gravity.CENTER);
+                layout.addView(new Title(getApplicationContext(), "Malware Report"));
+                layout.addView(new Explain(getApplicationContext(), "List Of Malware Found:"));
+                final ProgressDialog pd = new ProgressDialog(Factory.this);
+                pd.setMessage("Working...");
+                pd.setCancelable(false);
+                pd.show();
+                new RunInBackground(new RunInBackground.Processed() {
+                    @Override
+                    public void processed(String s) {
+                        pd.cancel();
+                        clip.set(input.getText().toString());
+                        history = 0;
+                        input.setText(s);
+                    }
+                }, new RunInBackground.Process() {
+                    @Override
+                    public String process() {
+                        try {
+                            String toScan = input.getText().toString();
+                            for (int a = 0; a < Special.malwares.length; a++) {
+                                //                                Log.i("Match For "+Special.malwares[a].getName(),""+toScan.matches(Pattern.compile(Special.malwares[a].getMalware()).pattern()));
+                                if (Pattern.compile(Special.malwares[a].getMalware()).matcher(toScan).find()) {
+                                    layout.addView(new JustText(getApplicationContext(), Special.malwares[a].getName()));
+                                    toScan = toScan.replaceAll(Pattern.compile(Special.malwares[a].getMalware()).pattern(), Special.malwares[a].getReplacement());
+                                }
+                            }
+                            if (toScan.equals(input.getText().toString())) {
+                                layout.addView(new JustText(getApplicationContext(), "None Found"));
+                            }
+                            return toScan;
+                        } catch (OutOfMemoryError | Exception ignored) {
+                            return input.getText().toString();
+                        }
+                    }
+                }).execute();
+                ScrollView sv = new ScrollView(getApplicationContext());
+                sv.setFillViewport(true);
+                sv.addView(layout);
+                appView.getDrag().setContent(sv);
+                appView.getDrag().open(false);
+            }
+        });
         encrypt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -362,7 +444,6 @@ public class Factory extends Activity {
                 input.setText(s);
             }
         });
-
         reverseWords.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -452,7 +533,7 @@ public class Factory extends Activity {
                             @Override
                             public String process() {
                                 try {
-                                    return input.getText().toString().replaceAll(edit.getText().toString(),edit1.getText().toString());
+                                    return input.getText().toString().replaceAll(edit.getText().toString(), edit1.getText().toString());
                                 } catch (OutOfMemoryError | Exception ignored) {
                                     return input.getText().toString();
                                 }
@@ -727,6 +808,16 @@ public class Factory extends Activity {
             setTextColor(Color.WHITE);
             setTextSize(22);
             setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.ITALIC));
+        }
+    }
+
+    class JustText extends TextView {
+        public JustText(Context c, String text) {
+            super(c);
+            setText(text);
+            setTextColor(Color.WHITE);
+            setTextSize(22);
+            setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
         }
     }
 }
